@@ -1,11 +1,18 @@
 package com.epam.cdp.java.classloader.task1;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class Main {
+	
+	private static final String libPath = "..\\lib\\options.jar";
+	
 	public static void main(String[] args) {
 
 		try {
@@ -52,15 +59,27 @@ public class Main {
 		try {
 			loadAndRunClass(className, paramsArr);
 		} catch (Exception e) {
-			System.out.println("Please, use correct values according to the message.");
+			e.printStackTrace();
 		}
 	}
 
 	private static void loadAndRunClass(String className, Object[] params) throws Exception {
-		Class<?> cls = Class.forName(className);
+		File file = new File(libPath);
+		URL url = file.toURI().toURL();
+		URL[] urls = { url };
+
+		URLClassLoader loader = new URLClassLoader(urls);
+		Class<?> cls = loader.loadClass(className);
+
 		Method method = cls.getDeclaredMethod("run", new Class[] { Object[].class });
 		Object obj = cls.newInstance();
-		method.invoke(obj, new Object[] { params });
+		try {
+			method.invoke(obj, new Object[] { params });
+		} catch (InvocationTargetException e) {
+			System.out.println("Please, provide correct values according to the message.");
+		}
+
+		loader.close();
 	}
 
 }
