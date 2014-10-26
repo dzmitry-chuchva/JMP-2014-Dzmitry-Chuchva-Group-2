@@ -1,0 +1,7 @@
+sayhello=com.epam.cdp.java.multithreading.option.impl.SayHelloOption
+
+sum=com.epam.cdp.java.multithreading.option.impl.SumOption
+
+sendmail=com.epam.cdp.java.multithreading.option.impl.SendMailOption
+
+longopt=com.epam.cdp.java.multithreading.option.impl.LongRunningOption
