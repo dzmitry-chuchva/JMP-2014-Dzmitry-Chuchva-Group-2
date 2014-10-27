@@ -31,27 +31,6 @@ public class ThreadUtil {
 		}
 	}
 
-	public void runInNotParallelMode(List<Thread> threadList) {
-		for (Thread thread : threadList) {
-			thread.start();
-			while (thread.isAlive()) {
-				// To decrease check frequency
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	public void runInParallelMode(List<Thread> threadList) {
-		for (Thread thread : threadList) {
-			thread.start();
-		}
-	}
-
 	public List<Thread> initThreadList(String[] cmdArgs) {
 		List<Thread> threadList = new ArrayList<Thread>();
 

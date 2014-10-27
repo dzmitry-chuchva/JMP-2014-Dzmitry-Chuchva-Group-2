@@ -51,14 +51,21 @@ public class Main {
 			List<Thread> threadList = util.initThreadList(args);
 
 			switch (choosenMode) {
+			// run in parallel mode
 			case 1:
-				util.runInParallelMode(threadList);
+				for (Thread thread : threadList) {
+					thread.start();
+				}
 				for (Thread thread : threadList) {
 					thread.join();
 				}
 				break;
+			// run in not parallel mode
 			case 2:
-				util.runInNotParallelMode(threadList);
+				for (Thread thread : threadList) {
+					thread.start();
+					thread.join();
+				}
 				break;
 			default:
 				break;
@@ -73,10 +80,10 @@ public class Main {
 
 		ThreadUtil.calcExecTime(Thread.currentThread().getName(), startTime);
 		ThreadUtil.printStatistics();
-		
+
 		IOutput out = BufferedFileOutput.getInstance();
 		out.flush();
-		
+
 		System.out.println("App is finished.");
 	}
 }
