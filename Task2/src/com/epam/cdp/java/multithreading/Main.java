@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.epam.cdp.java.multithreading.output.BufferedFileOutput;
+import com.epam.cdp.java.multithreading.output.IOutput;
 import com.epam.cdp.java.multithreading.util.ThreadUtil;
 
 public class Main {
@@ -71,5 +73,10 @@ public class Main {
 
 		ThreadUtil.calcExecTime(Thread.currentThread().getName(), startTime);
 		ThreadUtil.printStatistics();
+		
+		IOutput out = BufferedFileOutput.getInstance();
+		out.flush();
+		
+		System.out.println("App is finished.");
 	}
 }

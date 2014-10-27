@@ -24,7 +24,7 @@ public class SumOption implements IOption {
 					result += (Integer) arg;
 				}
 			}
-			output.output(result.toString());
+			output.output("Sum is " + result.toString());
 		} catch (NumberFormatException e) {
 			System.out.println("You should provide only number values for sum.");
 			throw new IllegalArgumentException(e);

@@ -1,1 +1,13 @@
-ecuting of Long 
+Start executing of Long Running Option.
+Sum is 12
+Long Running Option is still executing.
+Long Running Option is still executing.
+Long Running Option is still executing.
+Long Running Option is still executing.
+Long Running Option is still executing.
+End executing of Long Running Option.
+
+Threads execution statistics:
+Thread main executions time is 4.375 sec.
+Thread Thread-0 executions time is 0.0 sec.
+Thread Thread-1 executions time is 2.509 sec.

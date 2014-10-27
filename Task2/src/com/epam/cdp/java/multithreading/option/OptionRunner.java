@@ -10,7 +10,7 @@ import java.net.URLClassLoader;
 import java.util.List;
 import java.util.Properties;
 
-import com.epam.cdp.java.multithreading.output.FileBufferedOutput;
+import com.epam.cdp.java.multithreading.output.BufferedFileOutput;
 import com.epam.cdp.java.multithreading.output.IOutput;
 
 public class OptionRunner implements Runnable {
@@ -50,9 +50,9 @@ public class OptionRunner implements Runnable {
 		URLClassLoader loader = new URLClassLoader(urls);
 		Class<?> cls = loader.loadClass(className);
 
-		Method method = cls.getDeclaredMethod("run", new Class[] { Object[].class, IOutput.class });
+		Method method = cls.getDeclaredMethod("run", Object[].class, IOutput.class);
 		Object obj = cls.newInstance();
-		method.invoke(obj, new Object[] { params }, new FileBufferedOutput());
+		method.invoke(obj, params, BufferedFileOutput.getInstance());
 
 		loader.close();
 	}

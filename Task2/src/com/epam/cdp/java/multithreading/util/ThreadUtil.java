@@ -1,16 +1,18 @@
 package com.epam.cdp.java.multithreading.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.epam.cdp.java.multithreading.option.OptionRunner;
+import com.epam.cdp.java.multithreading.output.BufferedFileOutput;
+import com.epam.cdp.java.multithreading.output.IOutput;
 
 public class ThreadUtil {
 
-	private static Map<String, Double> threadStatistics = new HashMap<String, Double>();
+	private static Map<String, Double> threadStatistics = new ConcurrentHashMap<String, Double>();
 
 	public static void calcExecTime(String threadName, Long startTime) {
 		Long endTime = System.currentTimeMillis();
@@ -19,12 +21,13 @@ public class ThreadUtil {
 	}
 
 	public static void printStatistics() {
-		System.out.println("");
-		System.out.println("Threads execution statistics:");
+		IOutput out = BufferedFileOutput.getInstance();
+		out.output("");
+		out.output("Threads execution statistics:");
 		for (Entry<String, Double> entry : threadStatistics.entrySet()) {
 			String thrName = entry.getKey();
 			Double execTime = entry.getValue();
-			System.out.println("Thread " + thrName + " executions time is " + execTime + " sec.");
+			out.output("Thread " + thrName + " executions time is " + execTime + " sec.");
 		}
 	}
 
