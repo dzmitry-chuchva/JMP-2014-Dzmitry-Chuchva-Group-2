@@ -57,7 +57,7 @@ public class MySQLCustomerDAOTest {
 		IDataSet dataSet = readDataSet("src/resources/test/dataset/fetchConversionRate.xml");
 		cleanlyInsert(dataSet);
 		Conversion conversion = customerDAO.fetchConversionRate(1L, 2L, connTest);
-		assertTrue(conversion != null);
+		assertTrue(conversion.getRate() == 0.8);
 	}
 
 	@Test

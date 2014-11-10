@@ -99,7 +99,7 @@ public class MySQLAdminDAOTest {
 		IDataSet dataSet = readDataSet("src/resources/test/dataset/fetchAccount.xml");
 		cleanlyInsert(dataSet);
 		Account account = adminDAO.fetchAccount(1L, connTest);
-		assertTrue(account != null);
+		assertTrue(account.getUser().getId() == 1);
 	}
 
 	private IDataSet readDataSet(String fileName) throws Exception {

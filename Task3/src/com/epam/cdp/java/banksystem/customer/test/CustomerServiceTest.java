@@ -10,6 +10,7 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.unitils.dbunit.annotation.ExpectedDataSet;
 
 import com.epam.cdp.java.banksystem.admin.AdminDAO;
 import com.epam.cdp.java.banksystem.customer.CustomerDAO;
@@ -74,6 +75,11 @@ public class CustomerServiceTest {
 			}
 		});
 		customerService.performExchange(accFrom.getId(), accTo.getId(), exchangeValue);
+	}
+
+	@Test(expected = TechnicalException.class)
+	public void testPerformExchangeNegative() throws SQLException, TechnicalException {
+		customerService.performExchange(1L, 1L, 300.0);
 	}
 
 }

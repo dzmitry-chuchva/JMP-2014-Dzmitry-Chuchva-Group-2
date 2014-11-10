@@ -19,6 +19,9 @@ public class CustomerService {
 	}
 
 	public void performExchange(long accFromId, long accToId, double exchangeValue) throws TechnicalException {
+		if (accFromId == accToId) {
+			throw new TechnicalException();
+		}
 		ConnectionPool conPool = null;
 		Connection conn = null;
 
