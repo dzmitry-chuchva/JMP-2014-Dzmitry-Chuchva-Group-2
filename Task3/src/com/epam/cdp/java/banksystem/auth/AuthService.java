@@ -5,7 +5,8 @@ import java.sql.SQLException;
 
 import com.epam.cdp.java.banksystem.conn.ConnectionPool;
 import com.epam.cdp.java.banksystem.dto.User;
-import com.epam.cdp.java.banksystem.exception.ServiceException;
+import com.epam.cdp.java.banksystem.exception.TechnicalException;
+import com.epam.cdp.java.banksystem.exception.UserAlreadyExistsException;
 
 public class AuthService {
 
@@ -15,68 +16,75 @@ public class AuthService {
 		this.authDAO = authDAO;
 	}
 
-	public User signIn(String login, String pass) throws ServiceException {
+	public User signIn(String login, String pass) throws TechnicalException {
 		User user = null;
 		ConnectionPool conPool = null;
 		Connection conn = null;
+
 		try {
-			conPool = ConnectionPool.getInstance();
-			conn = conPool.getConnection();
-			conn.setAutoCommit(false);
-			user = authDAO.fetchUserByLoginAndPass(login, pass, conn);
-			conn.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			if (conn != null) {
-				try {
+
+			try {
+				conPool = ConnectionPool.INSTANCE;
+				conn = conPool.getConnection();
+				conn.setAutoCommit(false);
+				user = authDAO.fetchUserByLoginAndPass(login, pass, conn);
+				conn.commit();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				if (conn != null) {
 					conn.rollback();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+				}
+				throw new TechnicalException();
+			} finally {
+				if (conPool != null) {
+					conPool.releaseConnection(conn);
 				}
 			}
-			throw new ServiceException();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new ServiceException();
-		} finally {
-			if (conn != null) {
-				conPool.releaseConnection();
-			}
+
+		} catch (SQLException e) {
+			throw new TechnicalException(e);
 		}
+
 		return user;
 	}
 
-	public User signUp(String firstName, String lastName, String login, String pass) throws ServiceException {
+	public User signUp(String firstName, String lastName, String login, String pass) throws TechnicalException, UserAlreadyExistsException {
 		User user = null;
 		ConnectionPool conPool = null;
 		Connection conn = null;
+
 		try {
-			conPool = ConnectionPool.getInstance();
-			conn = conPool.getConnection();
-			conn.setAutoCommit(false);
-			int rowsAffected = authDAO.createUser(firstName, lastName, login, pass, conn);
-			if (rowsAffected == 1) {
+
+			try {
+				conPool = ConnectionPool.INSTANCE;
+				conn = conPool.getConnection();
+				conn.setAutoCommit(false);
 				user = authDAO.fetchUserByLoginAndPass(login, pass, conn);
-			}
-			conn.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			if (conn != null) {
-				try {
+				if (user != null) {
+					throw new UserAlreadyExistsException("User already exists.");
+				}
+				int rowsAffected = authDAO.createUser(firstName, lastName, login, pass, conn);
+				if (rowsAffected == 0) {
+					throw new TechnicalException();
+				}
+				user = authDAO.fetchUserByLoginAndPass(login, pass, conn);
+				conn.commit();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				if (conn != null) {
 					conn.rollback();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+				}
+				throw new TechnicalException();
+			} finally {
+				if (conPool != null) {
+					conPool.releaseConnection(conn);
 				}
 			}
-			throw new ServiceException();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new ServiceException();
-		} finally {
-			if (conn != null) {
-				conPool.releaseConnection();
-			}
+
+		} catch (SQLException e) {
+			throw new TechnicalException();
 		}
+
 		return user;
 	}
 

@@ -1,0 +1,5 @@
+<dataset>
+	<CURRENCY currency_id="1" type="USD" />
+	<CURRENCY currency_id="2" type="EUR" />
+	<CURRENCY currency_id="3" type="BYR" />
+</dataset>

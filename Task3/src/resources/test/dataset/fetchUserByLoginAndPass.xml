@@ -1,0 +1,5 @@
+<dataset>
+	<USER user_id="1" login="login" password="pass" role_id="1" first_name="fname" last_name="lname" />
+	
+	<ROLE role_id="1" role="admin" />
+</dataset>

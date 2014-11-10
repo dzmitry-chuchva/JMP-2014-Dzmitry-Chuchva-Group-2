@@ -7,8 +7,8 @@
 <title>Welcome</title>
 </head>
 <body>
-	<a href="view/auth/SignIn.jsp">Sign In</a>
+	<a href="view/auth/signIn.jsp">Sign In</a>
 	<br />
-	<a href="view/auth/SignUp.jsp">Sign Up</a>
+	<a href="view/auth/signUp.jsp">Sign Up</a>
 </body>
 </html>

@@ -1,0 +1,8 @@
+<dataset>
+	<USER user_id="1" login="login1" password="pass1" role_id="2" first_name="fname1" last_name="lname1" />
+	<USER user_id="2" login="login2" password="pass2" role_id="2" first_name="fname2" last_name="lname2" />
+	<USER user_id="3" login="login3" password="pass3" role_id="2" first_name="fname3" last_name="lname3" />
+	
+	<ROLE role_id="1" role="admin" />
+	<ROLE role_id="2" role="customer" />
+</dataset>

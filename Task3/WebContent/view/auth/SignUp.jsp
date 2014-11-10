@@ -11,30 +11,30 @@
 		<div>
 			<div style="display: inline-block;">
 				<div>
-					<label>First Name</label>
-				</div>
-				<div>
-					<label>Last Name</label>
-				</div>
-				<div>
 					<label>Login</label>
 				</div>
 				<div>
 					<label>Password</label>
 				</div>
+				<div>
+					<label>First Name</label>
+				</div>
+				<div>
+					<label>Last Name</label>
+				</div>
 			</div>
 			<div style="display: inline-block;">
-				<div>
-					<input name="fName" type="text" />
-				</div> 
-				<div>
-					<input name="lName" type="text" />
-				</div>
 				<div>
 					<input name="login" type="text" />
 				</div> 
 				<div>
 					<input name="pass" type="password" />
+				</div>
+				<div>
+					<input name="fName" type="text" />
+				</div> 
+				<div>
+					<input name="lName" type="text" />
 				</div>
 			</div>
 			<div>

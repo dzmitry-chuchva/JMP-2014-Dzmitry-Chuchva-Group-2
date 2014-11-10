@@ -1,6 +1,6 @@
 package com.epam.cdp.java.banksystem.exception;
 
-public class ConPoolInitException extends RuntimeException {
+public class ConPoolInitException extends TechnicalException {
 	/**
 	 * 
 	 */

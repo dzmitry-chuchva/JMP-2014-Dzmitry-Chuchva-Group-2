@@ -1,0 +1,6 @@
+<dataset>
+	<CURRENCY currency_id="1" type="USD" />
+	<CURRENCY currency_id="2" type="EUR" />
+
+	<CONVERSION from_id="1" to_id="2" rate="0.8" />
+</dataset>
