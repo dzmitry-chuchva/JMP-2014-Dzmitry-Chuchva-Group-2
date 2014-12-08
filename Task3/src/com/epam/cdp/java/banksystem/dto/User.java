@@ -1,55 +1,84 @@
 package com.epam.cdp.java.banksystem.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
 public class User {
-	private long id;
-	private String login;
-	private String firstName;
-	private String lastName;
-	private String role;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", unique = true, nullable = false)
+    private long id;
 
-	public long getId() {
-		return id;
-	}
+    @Column(name = "login")
+    private String login;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @Column(name = "first_name")
+    private String firstName;
 
-	public String getLogin() {
-		return login;
-	}
+    @Column(name = "last_name")
+    private String lastName;
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    @Column(name = "password")
+    private String password;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getPassword() {
+	return password;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setPassword(String password) {
+	this.password = password;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public long getId() {
+	return id;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public void setId(long id) {
+	this.id = id;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public String getLogin() {
+	return login;
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", firstName=" + firstName + ", lastName=" + lastName + ", role=" + role + "]";
-	}
+    public void setLogin(String login) {
+	this.login = login;
+    }
+
+    public String getFirstName() {
+	return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+	this.firstName = firstName;
+    }
+
+    public String getLastName() {
+	return lastName;
+    }
+
+    public void setLastName(String lastName) {
+	this.lastName = lastName;
+    }
+
+    public String getRole() {
+	return role.getName();
+    }
+
+    public void setRole(Role role) {
+	this.role = role;
+    }
 
 }

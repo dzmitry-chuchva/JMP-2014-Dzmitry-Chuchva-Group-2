@@ -1,32 +1,57 @@
 package com.epam.cdp.java.banksystem.dto;
 
-public class Conversion {
-	private Currency from;
-	private Currency to;
-	private double rate;
+import java.io.Serializable;
 
-	public Currency getFrom() {
-		return from;
-	}
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-	public void setFrom(Currency from) {
-		this.from = from;
-	}
+@Entity
+@Table(name = "conversion")
+public class Conversion implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8562950977272677567L;
 
-	public Currency getTo() {
-		return to;
-	}
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "currency_id", insertable = false, updatable = false)
+    private Currency from;
 
-	public void setTo(Currency to) {
-		this.to = to;
-	}
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "currency_id", insertable = false, updatable = false)
+    private Currency to;
 
-	public double getRate() {
-		return rate;
-	}
+    @Column(name = "rate")
+    private double rate;
 
-	public void setRate(double rate) {
-		this.rate = rate;
-	}
+    public Currency getFrom() {
+	return from;
+    }
+
+    public void setFrom(Currency from) {
+	this.from = from;
+    }
+
+    public Currency getTo() {
+	return to;
+    }
+
+    public void setTo(Currency to) {
+	this.to = to;
+    }
+
+    public double getRate() {
+	return rate;
+    }
+
+    public void setRate(double rate) {
+	this.rate = rate;
+    }
 
 }

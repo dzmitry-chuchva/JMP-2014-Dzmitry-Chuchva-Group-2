@@ -1,41 +1,63 @@
 package com.epam.cdp.java.banksystem.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "account")
 public class Account {
-	private long id;
-	private double value;
-	private User user;
-	private Currency currency;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id", unique = true, nullable = false)
+    private long id;
 
-	public long getId() {
-		return id;
-	}
+    @Column(name = "value")
+    private double value;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "currency_id")
+    private Currency currency;
 
-	public double getValue() {
-		return value;
-	}
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-	public void setValue(double value) {
-		this.value = value;
-	}
+    public long getId() {
+	return id;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public void setId(long id) {
+	this.id = id;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public double getValue() {
+	return value;
+    }
 
-	public Currency getCurrency() {
-		return currency;
-	}
+    public void setValue(double value) {
+	this.value = value;
+    }
 
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
-	}
+    public User getUser() {
+	return user;
+    }
+
+    public void setUser(User user) {
+	this.user = user;
+    }
+
+    public Currency getCurrency() {
+	return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+	this.currency = currency;
+    }
 
 }
