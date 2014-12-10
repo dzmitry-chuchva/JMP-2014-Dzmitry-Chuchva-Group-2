@@ -1,9 +1,9 @@
 package com.epam.cdp.java.banksystem.dto;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,47 +11,53 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "conversion")
-public class Conversion implements Serializable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 8562950977272677567L;
+public class Conversion {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "conversion_id", unique = true, nullable = false)
+	private long id;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "currency_id", insertable = false, updatable = false)
-    private Currency from;
+	@ManyToOne
+	@JoinColumn(name = "from_id", referencedColumnName = "currency_id", insertable = false, updatable = false)
+	private Currency from;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "currency_id", insertable = false, updatable = false)
-    private Currency to;
+	@ManyToOne
+	@JoinColumn(name = "to_id", referencedColumnName = "currency_id", insertable = false, updatable = false)
+	private Currency to;
 
-    @Column(name = "rate")
-    private double rate;
+	@Column(name = "rate")
+	private double rate;
 
-    public Currency getFrom() {
-	return from;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setFrom(Currency from) {
-	this.from = from;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public Currency getTo() {
-	return to;
-    }
+	public Currency getFrom() {
+		return from;
+	}
 
-    public void setTo(Currency to) {
-	this.to = to;
-    }
+	public void setFrom(Currency from) {
+		this.from = from;
+	}
 
-    public double getRate() {
-	return rate;
-    }
+	public Currency getTo() {
+		return to;
+	}
 
-    public void setRate(double rate) {
-	this.rate = rate;
-    }
+	public void setTo(Currency to) {
+		this.to = to;
+	}
+
+	public double getRate() {
+		return rate;
+	}
+
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
 
 }

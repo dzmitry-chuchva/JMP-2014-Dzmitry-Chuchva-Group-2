@@ -37,6 +37,7 @@ public class AuthController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doService(request, response);
 	}
@@ -45,6 +46,7 @@ public class AuthController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doService(request, response);
 	}
@@ -76,7 +78,7 @@ public class AuthController extends HttpServlet {
 	private String handleSignIn(HttpServletRequest request) throws TechnicalException {
 		String login = request.getParameter("login");
 		String pass = request.getParameter("pass");
-		AuthService auth = new AuthService(new MySQLAuthDAO());
+		AuthService auth = new AuthService(new JPAAuthDAO());
 		User user = auth.signIn(login, pass);
 		String URL = null;
 		if (user != null) {
@@ -99,7 +101,7 @@ public class AuthController extends HttpServlet {
 		String pass = request.getParameter("pass");
 		String firstName = request.getParameter("fName");
 		String lastName = request.getParameter("lName");
-		AuthService auth = new AuthService(new MySQLAuthDAO());
+		AuthService auth = new AuthService(new JPAAuthDAO());
 		User user = auth.signUp(firstName, lastName, login, pass);
 		String URL = null;
 		if (user != null) {

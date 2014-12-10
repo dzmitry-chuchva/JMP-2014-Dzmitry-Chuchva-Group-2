@@ -39,6 +39,7 @@ public class AdminController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doService(request, response);
 	}
@@ -47,6 +48,7 @@ public class AdminController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doService(request, response);
 	}
@@ -75,14 +77,14 @@ public class AdminController extends HttpServlet {
 	}
 
 	private String handleHome(HttpServletRequest request) throws TechnicalException {
-		AdminService service = new AdminService(new MySQLAdminDAO());
+		AdminService service = new AdminService(new JPAAdminDAO());
 		List<Account> accountList = service.readAccountList();
 		request.setAttribute("accounts", accountList);
 		return HOME_PAGE;
 	}
 
 	private String handleAddAccount(HttpServletRequest request) throws TechnicalException {
-		AdminService service = new AdminService(new MySQLAdminDAO());
+		AdminService service = new AdminService(new JPAAdminDAO());
 		List<Currency> currencyTypeList = service.readCurrencyTypeList();
 		request.setAttribute("currencyTypes", currencyTypeList);
 		List<User> userList = service.readUserList();
@@ -91,7 +93,7 @@ public class AdminController extends HttpServlet {
 	}
 
 	private String handleCreateAccount(HttpServletRequest request) throws TechnicalException {
-		AdminService service = new AdminService(new MySQLAdminDAO());
+		AdminService service = new AdminService(new JPAAdminDAO());
 		long userId = Long.parseLong(request.getParameter("userId"));
 		long currencyId = Long.parseLong(request.getParameter("currencyId"));
 		double value = Double.parseDouble(request.getParameter("value"));

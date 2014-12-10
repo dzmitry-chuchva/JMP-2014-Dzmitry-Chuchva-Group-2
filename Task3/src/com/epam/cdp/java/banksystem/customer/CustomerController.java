@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.cdp.java.banksystem.admin.AdminService;
-import com.epam.cdp.java.banksystem.admin.MySQLAdminDAO;
+import com.epam.cdp.java.banksystem.admin.JPAAdminDAO;
 import com.epam.cdp.java.banksystem.dto.Account;
 import com.epam.cdp.java.banksystem.dto.User;
 import com.epam.cdp.java.banksystem.exception.TechnicalException;
@@ -40,6 +40,7 @@ public class CustomerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doService(request, response);
 	}
@@ -48,6 +49,7 @@ public class CustomerController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doService(request, response);
 	}
@@ -89,13 +91,13 @@ public class CustomerController extends HttpServlet {
 		long accFromId = Long.parseLong(request.getParameter("accountFromId"));
 		long accToId = Long.parseLong(request.getParameter("accountToId"));
 		double exchangeValue = Double.parseDouble(request.getParameter("exchangeValue"));
-		CustomerService service = new CustomerService(new MySQLCustomerDAO(), new MySQLAdminDAO());
+		CustomerService service = new CustomerService(new JPACustomerDAO(), new JPAAdminDAO());
 		service.performExchange(accFromId, accToId, exchangeValue);
 		return HOME_ACTION;
 	}
 
 	private void initAccounts(HttpServletRequest request) throws TechnicalException {
-		AdminService service = new AdminService(new MySQLAdminDAO());
+		AdminService service = new AdminService(new JPAAdminDAO());
 		long userId = ((User) request.getSession().getAttribute("user")).getId();
 		List<Account> accountList = service.readUserAccountList(userId);
 		request.setAttribute("accounts", accountList);
