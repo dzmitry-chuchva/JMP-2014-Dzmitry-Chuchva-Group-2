@@ -3,16 +3,27 @@ package com.epam.cdp.java.banksystem.auth;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.epam.cdp.java.banksystem.conn.ConnectionPool;
 import com.epam.cdp.java.banksystem.dto.User;
 import com.epam.cdp.java.banksystem.exception.TechnicalException;
 import com.epam.cdp.java.banksystem.exception.UserAlreadyExistsException;
 
+@Service("AuthService")
 public class AuthService {
 
+	@Autowired
+	@Qualifier("JPAAuthDAO")
 	private AuthDAO authDAO;
 
-	public AuthService(AuthDAO authDAO) {
+	public AuthDAO getAuthDAO() {
+		return authDAO;
+	}
+
+	public void setAuthDAO(AuthDAO authDAO) {
 		this.authDAO = authDAO;
 	}
 

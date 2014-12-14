@@ -2,12 +2,17 @@ package com.epam.cdp.java.banksystem.auth;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.epam.cdp.java.banksystem.dto.User;
 import com.epam.cdp.java.banksystem.exception.TechnicalException;
@@ -16,6 +21,7 @@ import com.epam.cdp.java.banksystem.exception.UserAlreadyExistsException;
 /**
  * Servlet implementation class AuthController
  */
+
 @WebServlet("/AuthController")
 public class AuthController extends HttpServlet {
 
@@ -25,12 +31,29 @@ public class AuthController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
+	@Qualifier("AuthService")
+	private AuthService authService;
+
+	public AuthService getAuthService() {
+		return authService;
+	}
+
+	public void setAuthService(AuthService authService) {
+		this.authService = authService;
+	}
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public AuthController() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 	}
 
 	/**
@@ -78,8 +101,7 @@ public class AuthController extends HttpServlet {
 	private String handleSignIn(HttpServletRequest request) throws TechnicalException {
 		String login = request.getParameter("login");
 		String pass = request.getParameter("pass");
-		AuthService auth = new AuthService(new JPAAuthDAO());
-		User user = auth.signIn(login, pass);
+		User user = authService.signIn(login, pass);
 		String URL = null;
 		if (user != null) {
 			HttpSession session = request.getSession();
@@ -101,8 +123,7 @@ public class AuthController extends HttpServlet {
 		String pass = request.getParameter("pass");
 		String firstName = request.getParameter("fName");
 		String lastName = request.getParameter("lName");
-		AuthService auth = new AuthService(new JPAAuthDAO());
-		User user = auth.signUp(firstName, lastName, login, pass);
+		User user = authService.signUp(firstName, lastName, login, pass);
 		String URL = null;
 		if (user != null) {
 			HttpSession session = request.getSession();

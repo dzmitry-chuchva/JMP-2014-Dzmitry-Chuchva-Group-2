@@ -3,14 +3,18 @@ package com.epam.cdp.java.banksystem.customer;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
 import com.epam.cdp.java.banksystem.admin.AdminService;
-import com.epam.cdp.java.banksystem.admin.JPAAdminDAO;
 import com.epam.cdp.java.banksystem.dto.Account;
 import com.epam.cdp.java.banksystem.dto.User;
 import com.epam.cdp.java.banksystem.exception.TechnicalException;
@@ -27,6 +31,36 @@ public class CustomerController extends HttpServlet {
 	private final String ERROR_PAGE = "view/error.jsp";
 
 	private static final long serialVersionUID = 1L;
+
+	@Autowired
+	@Qualifier("AdminService")
+	private AdminService adminService;
+
+	@Autowired
+	@Qualifier("CustomerService")
+	private CustomerService customerService;
+
+	public AdminService getAdminService() {
+		return adminService;
+	}
+
+	public void setAdminService(AdminService adminService) {
+		this.adminService = adminService;
+	}
+
+	public CustomerService getCustomerService() {
+		return customerService;
+	}
+
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+	}
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -91,15 +125,13 @@ public class CustomerController extends HttpServlet {
 		long accFromId = Long.parseLong(request.getParameter("accountFromId"));
 		long accToId = Long.parseLong(request.getParameter("accountToId"));
 		double exchangeValue = Double.parseDouble(request.getParameter("exchangeValue"));
-		CustomerService service = new CustomerService(new JPACustomerDAO(), new JPAAdminDAO());
-		service.performExchange(accFromId, accToId, exchangeValue);
+		customerService.performExchange(accFromId, accToId, exchangeValue);
 		return HOME_ACTION;
 	}
 
 	private void initAccounts(HttpServletRequest request) throws TechnicalException {
-		AdminService service = new AdminService(new JPAAdminDAO());
 		long userId = ((User) request.getSession().getAttribute("user")).getId();
-		List<Account> accountList = service.readUserAccountList(userId);
+		List<Account> accountList = adminService.readUserAccountList(userId);
 		request.setAttribute("accounts", accountList);
 	}
 

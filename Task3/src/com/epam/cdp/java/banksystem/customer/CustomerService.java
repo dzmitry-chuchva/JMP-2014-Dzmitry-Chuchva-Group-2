@@ -3,18 +3,40 @@ package com.epam.cdp.java.banksystem.customer;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.epam.cdp.java.banksystem.admin.AdminDAO;
 import com.epam.cdp.java.banksystem.conn.ConnectionPool;
 import com.epam.cdp.java.banksystem.dto.Account;
 import com.epam.cdp.java.banksystem.dto.Conversion;
 import com.epam.cdp.java.banksystem.exception.TechnicalException;
 
+@Service("CustomerService")
 public class CustomerService {
+
+	@Autowired
+	@Qualifier("JPACustomerDAO")
 	private CustomerDAO customerDAO;
+
+	@Autowired
+	@Qualifier("JPAAdminDAO")
 	private AdminDAO adminDAO;
 
-	public CustomerService(CustomerDAO customerDAO, AdminDAO adminDAO) {
+	public CustomerDAO getCustomerDAO() {
+		return customerDAO;
+	}
+
+	public void setCustomerDAO(CustomerDAO customerDAO) {
 		this.customerDAO = customerDAO;
+	}
+
+	public AdminDAO getAdminDAO() {
+		return adminDAO;
+	}
+
+	public void setAdminDAO(AdminDAO adminDAO) {
 		this.adminDAO = adminDAO;
 	}
 

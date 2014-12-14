@@ -4,16 +4,28 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.epam.cdp.java.banksystem.conn.ConnectionPool;
 import com.epam.cdp.java.banksystem.dto.Account;
 import com.epam.cdp.java.banksystem.dto.Currency;
 import com.epam.cdp.java.banksystem.dto.User;
 import com.epam.cdp.java.banksystem.exception.TechnicalException;
 
+@Service("AdminService")
 public class AdminService {
+
+	@Autowired
+	@Qualifier("JPAAdminDAO")
 	private AdminDAO adminDAO;
 
-	public AdminService(AdminDAO adminDAO) {
+	public AdminDAO getAdminDAO() {
+		return adminDAO;
+	}
+
+	public void setAdminDAO(AdminDAO adminDAO) {
 		this.adminDAO = adminDAO;
 	}
 
