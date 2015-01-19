@@ -17,7 +17,7 @@
 			<div style="display: inline;">${account.user.lastName}</div>
 		</div>
 	</c:forEach>
-	<a href="index.jsp">Back</a>
-	<div style="display: inline;"><a href="AdminController?action=addAccount">Add Account</a></div>
+	<a href="/Task3/index.jsp">Back</a>
+	<div style="display: inline;"><a href="/Task3/AdminController/newAccount">Add Account</a></div>
 </body>
 </html>

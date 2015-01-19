@@ -15,9 +15,9 @@
 			<div style="display: inline;">${account.currency.type}</div>
 		</div>
 	</c:forEach>
-	<a href="index.jsp">Back</a>
+	<a href="/Task3/index.jsp">Back</a>
 	<div style="display: inline;">
-		<a href="CustomerController?action=startExchange">Exchange</a>
+		<a href="/Task3/CustomerController/startExchange/${user.id}">Exchange</a>
 	</div>
 </body>
 </html>

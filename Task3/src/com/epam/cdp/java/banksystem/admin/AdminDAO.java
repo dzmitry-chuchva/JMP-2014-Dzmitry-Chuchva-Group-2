@@ -21,4 +21,5 @@ public interface AdminDAO {
 
 	public List<Currency> fetchCurrencyTypeList(Connection conn) throws SQLException;
 
+	public User fetchUserById(Connection conn, Long userId) throws SQLException;
 }

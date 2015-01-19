@@ -8,7 +8,7 @@
 <title>Home</title>
 </head>
 <body>
-	<form action="CustomerController?action=completeExchange" method="post">
+	<form action="/Task3/CustomerController/completeExchange/${user.id}" method="post">
 		<div style="display: block;">
 			<div style="display: inline;">
 				<select name="accountFromId">
@@ -32,7 +32,7 @@
 		</div>
 		<div style="display: block;">
 			<div style="display: inline;">
-				<a href="index.jsp">Back</a>
+				<a href="/Task3/index.jsp">Back</a>
 			</div>
 			<div style="display: inline;">
 				<button>Complete</button>

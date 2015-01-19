@@ -7,7 +7,7 @@
 <title>Sign In</title>
 </head>
 <body>
-	<form action="../../AuthController?action=signIn" method="post">
+	<form action="/Task3/AuthController/signIn" method="post">
 		<div>
 			<div style="display: inline-block;">
 				<div>
@@ -26,7 +26,7 @@
 				</div>
 			</div>
 			<div>
-				<a href="../../index.jsp">Back</a>
+				<a href="/Task3/index.jsp">Back</a>
 				<button>Sign In</button>
 			</div>
 		</div>

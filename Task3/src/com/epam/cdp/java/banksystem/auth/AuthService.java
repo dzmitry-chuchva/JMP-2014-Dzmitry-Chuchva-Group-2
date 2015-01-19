@@ -72,7 +72,7 @@ public class AuthService {
 				conn.setAutoCommit(false);
 				user = authDAO.fetchUserByLoginAndPass(login, pass, conn);
 				if (user != null) {
-					throw new UserAlreadyExistsException("User already exists.");
+					throw new UserAlreadyExistsException("User is already exists.");
 				}
 				int rowsAffected = authDAO.createUser(firstName, lastName, login, pass, conn);
 				if (rowsAffected == 0) {

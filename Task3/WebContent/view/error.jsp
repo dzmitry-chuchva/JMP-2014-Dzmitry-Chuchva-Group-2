@@ -8,6 +8,7 @@
 </head>
 <body>
 ${message}
-<a href="index.jsp">Back</a>
+<br/> 
+<a href="/Task3">Home</a>
 </body>
 </html>

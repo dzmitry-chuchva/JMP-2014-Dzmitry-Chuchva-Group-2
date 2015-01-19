@@ -75,4 +75,9 @@ public class JPAAdminDAO implements AdminDAO {
 		return userList;
 	}
 
+	@Override
+	public User fetchUserById(Connection conn, Long userId) throws SQLException {
+		return entityManager.find(User.class, userId);
+	}
+
 }

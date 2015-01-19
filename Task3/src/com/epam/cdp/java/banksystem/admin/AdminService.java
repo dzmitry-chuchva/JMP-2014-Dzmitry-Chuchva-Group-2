@@ -185,4 +185,14 @@ public class AdminService {
 
 		return userList;
 	}
+
+	public User readUserById(Long userId) throws TechnicalException {
+		User user = null;
+		try {
+			user = adminDAO.fetchUserById(null, userId);
+		} catch (SQLException e) {
+			throw new TechnicalException();
+		}
+		return user;
+	}
 }

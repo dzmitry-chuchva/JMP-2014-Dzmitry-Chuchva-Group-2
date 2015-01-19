@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			<div>
-				<a href="../../index.jsp">Back</a>
+				<a href="/Task3/index.jsp">Back</a>
 				<button>Sign Up</button>
 			</div>
 		</div>

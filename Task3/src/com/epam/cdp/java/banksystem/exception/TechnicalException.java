@@ -1,6 +1,6 @@
 package com.epam.cdp.java.banksystem.exception;
 
-public class TechnicalException extends Exception {
+public class TechnicalException extends RuntimeException {
 	/**
 	 * 
 	 */
