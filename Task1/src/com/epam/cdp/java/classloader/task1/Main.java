@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Main {
-	
+
 	private static final String libPath = "..\\lib\\options.jar";
-	
+
 	public static void main(String[] args) {
 
 		try {
@@ -32,7 +32,7 @@ public class Main {
 				if (arg.substring(0, 1).matches("-")) {
 					// execute option only if it is not first elem
 					if (curOption.length() != 0) {
-						executeOption(curOption, curOptionParams, rb);
+						executeOption(curOption, curOptionParams);
 						curOption.setLength(0);
 						curOptionParams.clear();
 					}
@@ -43,13 +43,27 @@ public class Main {
 
 				// if last iteration
 				if (i == args.length - 1) {
-					executeOption(curOption, curOptionParams, rb);
+					executeOption(curOption, curOptionParams);
 				}
 			}
 		} catch (IllegalArgumentException e) {
 			System.out.println("Command line option should follows format: -optionname [<argument1> <argument2> ... <argumentN>]");
 		}
 
+	}
+
+	private static void executeOption(StringBuilder curOption, List<String> curOptionParams) {
+		String optionName = curOption.toString();
+		String[] paramsArr = new String[curOptionParams.size()];
+		paramsArr = curOptionParams.toArray(paramsArr);
+		OptionType optionType = OptionType.getTypeFromString(optionName);
+		IOption option = OptionFactory.buildOption(optionType);
+		OptionRunner runner = OptionRunner.getInstance();
+		runner.runOption(option, paramsArr);
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static void executeOption(StringBuilder curOption, List<String> curOptionParams, ResourceBundle rb) {
@@ -79,7 +93,7 @@ public class Main {
 			System.out.println("Please, provide correct values according to the message.");
 		}
 
-		loader.close();
+		// loader.close();
 	}
 
 }
