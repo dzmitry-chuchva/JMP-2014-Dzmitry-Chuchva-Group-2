@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.epam.cdp.java.classloader.option.factory.FactoryProducer;
+import com.epam.cdp.java.classloader.option.factory.OptionFactory;
+import com.epam.cdp.java.classloader.option.runner.SimpleOptionRunner;
+
 public class Main {
 
 	private static final String libPath = "..\\lib\\options.jar";
@@ -56,14 +60,12 @@ public class Main {
 		String optionName = curOption.toString();
 		String[] paramsArr = new String[curOptionParams.size()];
 		paramsArr = curOptionParams.toArray(paramsArr);
-		OptionType optionType = OptionType.getTypeFromString(optionName);
-		IOption option = OptionFactory.buildOption(optionType);
-		OptionRunner runner = OptionRunner.getInstance();
+
+		OptionFactory factory = FactoryProducer.getInstance().getFactory("FILE_CONFIG");
+		IOption option = factory.buildOption(optionName);
+
+		SimpleOptionRunner runner = SimpleOptionRunner.getInstance();
 		runner.runOption(option, paramsArr);
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	private static void executeOption(StringBuilder curOption, List<String> curOptionParams, ResourceBundle rb) {
