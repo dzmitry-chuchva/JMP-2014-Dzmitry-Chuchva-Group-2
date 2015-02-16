@@ -9,7 +9,7 @@ import com.epam.cdp.java.classloader.task1.IOption;
 
 public class FactoryProducer {
 	private static final FactoryProducer INSTANCE = new FactoryProducer();
-	private final OptionFactory fileConfigFañtory = new FileConfigOptionFañtory();
+	private final OptionFactory fileConfigFactory = new FileConfigOptionFactory();
 
 	public static FactoryProducer getInstance() {
 		return INSTANCE;
@@ -21,13 +21,13 @@ public class FactoryProducer {
 	public OptionFactory getFactory(String factoryName) {
 		switch (factoryName) {
 		case "FILE_CONFIG":
-			return fileConfigFañtory;
+			return fileConfigFactory;
 		default:
 			return null;
 		}
 	}
 
-	private class FileConfigOptionFañtory implements OptionFactory {
+	private class FileConfigOptionFactory implements OptionFactory {
 		private static final String LIB_PATH = "..\\lib\\options.jar";
 		private static final String CONFIG_PATH = "resources.config";
 
